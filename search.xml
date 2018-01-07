@@ -3,6 +3,37 @@
   
     
     <entry>
+      <title><![CDATA[Spring Bean的scope]]></title>
+      <url>/2018/01/07/Spring-Bean%E7%9A%84scope/</url>
+      <content type="html"><![CDATA[<p>scope 描述的是spring容器如何新建Bean实例的。Spring的Scope有以下的几种Scope注解的实现：</p>
+<ol>
+<li>Singleton:一个Spring容器中只有一个Bean实例，此为Spring的默认配置</li>
+<li>Prototype:每次调用，创建一个新的实例</li>
+<li>Request: 在web项目中，给每一个http request 新建一个bean实例</li>
+<li>Session: 在web项目中，给每一个http session新建一个实例</li>
+<li>GlobalSession: 这个只是在portal应用中有用，给每一个global http session 新建一个实例</li>
+</ol>
+<p>##示例演示<br>（1）编写Singleton的bean</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package chapter2;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by zhanghongbin01 on 2017/4/10.</span><br><span class="line"> */</span><br><span class="line">@Service</span><br><span class="line">public class DemoSingleService &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(2)编写Prototype的Bean</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">package chapter2;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.annotation.Scope;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by zhanghongbin01 on 2017/4/10.</span><br><span class="line"> */</span><br><span class="line">@Service</span><br><span class="line">@Scope(&quot;prototype&quot;)</span><br><span class="line">public class DemoProtypeService &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）编写配置类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">package chapter2;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.annotation.ComponentScan;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by zhanghongbin01 on 2017/4/10.</span><br><span class="line"> */</span><br><span class="line">@Configuration</span><br><span class="line">@ComponentScan(&quot;chapter2&quot;)</span><br><span class="line">public class DiConfig &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（4）在主函数中启动，进行测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package chapter2;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.annotation.AnnotationConfigApplicationContext;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by zhanghongbin01 on 2017/4/10.</span><br><span class="line"> */</span><br><span class="line">public class TestBeanScopMain &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(DiConfig.class);</span><br><span class="line">        DemoSingleService single1 = ctx.getBean(DemoSingleService.class);</span><br><span class="line">        DemoSingleService single2 = ctx.getBean(DemoSingleService.class);</span><br><span class="line"></span><br><span class="line">        DemoProtypeService p1 = ctx.getBean(DemoProtypeService.class);</span><br><span class="line">        DemoProtypeService p2 = ctx.getBean(DemoProtypeService.class);</span><br><span class="line"></span><br><span class="line">        //single1 和single2默认使用的是单例模式，在整个的系统中保持的是单例</span><br><span class="line">        System.out.println(&quot;s1和s2是否相等:&quot;+single1.equals(single2));</span><br><span class="line">        //p1和p2使用的是非单例模式，每次都会创建一个新的实例</span><br><span class="line">        System.out.println(&quot;p1和p2是否相等:&quot;+p1.equals(p2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="结果演示"><a href="#结果演示" class="headerlink" title="结果演示"></a>结果演示</h3><p><img src="http://img.blog.csdn.net/20170410083254740?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2l0aHViXzIwMDY2MDA1/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> 学习 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[struct timeval结构体]]></title>
       <url>/2018/01/07/struct-timeval%E7%BB%93%E6%9E%84%E4%BD%93/</url>
       <content type="html"><![CDATA[<h1 id="struct-timeval"><a href="#struct-timeval" class="headerlink" title="struct timeval"></a>struct timeval</h1><p>struct timeval是在linux中的一个关于时间的定义，在time.h中进行定义，原型是：</p>
