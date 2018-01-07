@@ -3,6 +3,26 @@
   
     
     <entry>
+      <title><![CDATA[struct timeval结构体]]></title>
+      <url>/2018/01/07/struct-timeval%E7%BB%93%E6%9E%84%E4%BD%93/</url>
+      <content type="html"><![CDATA[<h1 id="struct-timeval"><a href="#struct-timeval" class="headerlink" title="struct timeval"></a>struct timeval</h1><p>struct timeval是在linux中的一个关于时间的定义，在time.h中进行定义，原型是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct timeval  </span><br><span class="line">&#123;  </span><br><span class="line">__time_t tv_sec;        /* Seconds. */  </span><br><span class="line">__suseconds_t tv_usec;  /* Microseconds. */  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>其中，tv_sec为Epoch到创建struct timeval的秒数，tv_usec为微秒数。使用demo如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;sys/time.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main(int argc,char *argv[])&#123;</span><br><span class="line">    int i;</span><br><span class="line">    struct timeval tv;</span><br><span class="line"></span><br><span class="line">    for(i = 0;i &lt; 10; i++) &#123;</span><br><span class="line">        gettimeofday(&amp;tv, NULL);</span><br><span class="line">        cout &lt;&lt; tv.tv_sec &lt;&lt; &quot; &quot; &lt;&lt; tv.tv_usec &lt;&lt; endl;</span><br><span class="line">        sleep(1);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* vim: set ts=4 sw=4 sts=4 tw=100 */</span><br></pre></td></tr></table></figure>
+<p>运行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1510467679 792342</span><br><span class="line">1510467680 792449</span><br><span class="line">1510467681 792503</span><br><span class="line">1510467682 792577</span><br><span class="line">1510467683 792646</span><br><span class="line">1510467684 792691</span><br><span class="line">1510467685 792764</span><br><span class="line">1510467686 792829</span><br><span class="line">1510467687 792896</span><br><span class="line">1510467688 792959</span><br></pre></td></tr></table></figure>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> 学习 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[redis介绍]]></title>
       <url>/2018/01/07/redis%E4%BB%8B%E7%BB%8D/</url>
       <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Redis是一个开源的、高性能的、基于键值对的缓冲与存储系统，通过提供多种键值类型来适应不同场景下的存储需求。同时Redis的诸多高级的功能使其可以胜任消息队列、任务队列等不同的角色。</p>
@@ -23,59 +43,6 @@
         <tags>
             
             <tag> 学习 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[测试页面]]></title>
-      <url>/2018/01/07/hello/</url>
-      <content type="html"><![CDATA[<h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><p>这是我的第一篇博客，是个测试博客</p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ul>
-<li>文本1</li>
-<li>文件2</li>
-<li>文本3</li>
-</ul>
-<ol>
-<li>测试1</li>
-<li>测试2</li>
-</ol>
-<p><img src="http://upload-images.jianshu.io/upload_images/259-0ad0d0bfc1c608b6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p><a href="http://www.jianshu.com" target="_blank" rel="noopener">简书</a></p>
-<h4 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h4><table>
-<thead>
-<tr>
-<th>Tables</th>
-<th style="text-align:center">Are</th>
-<th style="text-align:right">Cool</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>col 3 is</td>
-<td style="text-align:center">right-aligned</td>
-<td style="text-align:right">$1600</td>
-</tr>
-<tr>
-<td>col 2 is</td>
-<td style="text-align:center">centered</td>
-<td style="text-align:right">$12</td>
-</tr>
-<tr>
-<td>zebra stripes</td>
-<td style="text-align:center">are neat</td>
-<td style="text-align:right">$1</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    super.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      
-        
-        <tags>
-            
-            <tag> 其他 </tag>
             
         </tags>
         
