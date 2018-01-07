@@ -3,6 +3,33 @@
   
     
     <entry>
+      <title><![CDATA[spring注解方式自动注入接口的实现子类]]></title>
+      <url>/2018/01/07/spring%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F%E8%87%AA%E5%8A%A8%E6%B3%A8%E5%85%A5%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%AD%90%E7%B1%BB/</url>
+      <content type="html"><![CDATA[<p>applicationContext.xml配置文件加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context:annotation-config/&gt;</span><br></pre></td></tr></table></figure>
+<p>作用是隐式地向 Spring 容器注册</p>
+<blockquote>
+<p>AutowiredAnnotationBeanPostProcessor、CommonAnnotationBeanPostProcessor、</p>
+<p>PersistenceAnnotationBeanPostProcessor 以及<br>RequiredAnnotationBeanPostProcessor 这 4 个BeanPostProcessor。</p>
+</blockquote>
+<p>注册这4个 BeanPostProcessor的作用，就是为了你的系统能够识别相应的注解。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">   &lt;!--</span><br><span class="line">设置需要进行Spring注解扫描的类包 --&gt;</span><br><span class="line"></span><br><span class="line">&lt;context:component-scan</span><br><span class="line">base-package=&quot;xx.xx&quot;</span><br><span class="line">/&gt; 可以用*代表所有</span><br><span class="line"></span><br><span class="line">@Service()</span><br><span class="line"></span><br><span class="line">publicclass ServiceImpl</span><br><span class="line">implements Service</span><br></pre></td></tr></table></figure>
+<p>调用时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    @Resource()</span><br><span class="line"></span><br><span class="line">private Service</span><br><span class="line">Service;</span><br></pre></td></tr></table></figure>
+<p>这样的话就能实现自动注入了</p>
+<p>@Service一般用来定义Service层 dao，action都有对应的注解网上可查</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Spring Bean的scope]]></title>
       <url>/2018/01/07/Spring-Bean%E7%9A%84scope/</url>
       <content type="html"><![CDATA[<p>scope 描述的是spring容器如何新建Bean实例的。Spring的Scope有以下的几种Scope注解的实现：</p>
