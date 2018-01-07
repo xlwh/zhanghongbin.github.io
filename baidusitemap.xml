@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>https://xlwh.github.io/2018/01/07/hello/</loc>
+    <lastmod>2018-01-07T07:32:15.752Z</lastmod>
+    <data>
+        <display>
+        <title>测试页面</title>
+        <pubTime>2018-01-07T05:19:00.000Z</pubTime>
+        
+        <tag>其他</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://xlwh.github.io/2018/01/07/redis%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2018-01-07T07:31:57.676Z</lastmod>
+    <data>
+        <display>
+        <title>redis介绍</title>
+        <pubTime>2018-01-07T07:17:45.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+</urlset>
